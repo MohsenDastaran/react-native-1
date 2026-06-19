@@ -1,34 +1,61 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
-  const [tempText, setTempText] = useState("Hello World 2!");
+  const [goals, setdGoals] = useState<string[]>([]);
+  const [enteredGoal, setEnteredGoal] = useState("");
+  // const goalInputHandler = (e: string) => {
+  //   setEnteredGoal(e);
+  // };
+  const addGoalHandler = () => {
+    setdGoals(goals.concat(enteredGoal));
+    setEnteredGoal("");
+  };
 
   return (
-    <View style={styles.container}>
-      <Text>Hello World! </Text>
-      <Text style={styles.text}> {tempText}</Text>
-      <Button title="Tap me" onPress={() => setTempText("Hi")} />
-      <Button title="Tap me" onPress={() => setTempText("Hello World 2!")} />
+    <View style={styles.appContainer}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Add Your Goal"
+          onChangeText={setEnteredGoal}
+          value={enteredGoal}
+        />
+        <Button title="Add Goal" onPress={addGoalHandler} />
+      </View>
+      <View style={styles.goalsContainer}>
+        {goals.map((g) => (
+          <Text key={g + Math.random()}>{g}</Text>
+        ))}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: "#fff",
+    paddingTop: 50,
+    paddingHorizontal: 16,
+  },
+  inputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "center",
+    marginBottom: 10,
+    borderBottomWidth: 3,
+    borderBottomColor: "#cccccc",
   },
-  text: {
-    color: "red",
-    margin: 16,
-    padding: 10,
+  textInput: {
     borderWidth: 1,
-    borderColor: "red",
+    width: "75%",
+    borderColor: "#cccccc",
+    borderRadius: 3,
+    padding: 4,
+    marginEnd: 4,
   },
-  button: {
-    borderRadius: 5,
+  goalsContainer: {
+    flex: 10,
   },
 });

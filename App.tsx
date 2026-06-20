@@ -1,53 +1,34 @@
 import { useState } from "react";
-import {
-  Button,
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Button, FlatList, StyleSheet, TextInput, View } from "react-native";
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  const [goals, setdGoals] = useState<string[]>([
-    "Test 1",
-    "Test 2",
-    "Test 3",
-    "Test 4",
-    "Test 5",
-    "Test 6",
-    "Test 7",
-    "Test 8",
-    "Test 9",
-    "Test 10",
+  const [goals, setdGoals] = useState<{ id: number; text: string }[]>([
+    { id: 1, text: "Test 1" },
+    { id: 2, text: "Test 2" },
+    { id: 3, text: "Test 3" },
+    { id: 4, text: "Test 4" },
+    { id: 5, text: "Test 5" },
+    { id: 6, text: "Test 6" },
+    { id: 7, text: "Test 7" },
+    { id: 8, text: "Test 8" },
+    { id: 9, text: "Test 9" },
   ]);
-  const [enteredGoal, setEnteredGoal] = useState("");
 
-  const addGoalHandler = () => {
-    if (!enteredGoal) return;
-    setdGoals(goals.concat(enteredGoal));
-    setEnteredGoal("");
+  const addGoalHandler = (goal: string) => {
+    if (!goal) return;
+    setdGoals(goals.concat({ id: Math.random(), text: goal }));
   };
 
   return (
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Add Your Goal"
-          onChangeText={setEnteredGoal}
-          value={enteredGoal}
-        />
-        <Button title="Add Goal" onPress={addGoalHandler} />
-      </View>
+      <GoalInput onAddGoal={addGoalHandler} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={goals}
           renderItem={(itemData) => (
-            <Text style={styles.goalItem} key={itemData.index + Math.random()}>
-              {itemData.item}
-            </Text>
+            <GoalItem item={itemData.item.text} index={itemData.item.id} />
           )}
         />
       </View>
@@ -59,32 +40,11 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
     paddingTop: 50,
+    paddingBottom: 40,
     paddingHorizontal: 16,
   },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 10,
-    borderBottomWidth: 3,
-    borderBottomColor: "#cccccc",
-  },
-  textInput: {
-    borderWidth: 1,
-    width: "75%",
-    borderColor: "#cccccc",
-    borderRadius: 3,
-    padding: 4,
-    marginEnd: 4,
-  },
+
   goalsContainer: {
     flex: 10,
-  },
-  goalItem: {
-    margin: 8,
-    padding: 8,
-    borderRadius: 5,
-    backgroundColor: "#ccc",
   },
 });

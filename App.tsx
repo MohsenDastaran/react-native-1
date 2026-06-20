@@ -21,6 +21,10 @@ export default function App() {
     setdGoals(goals.concat({ id: Math.random(), text: goal }));
   };
 
+  const deleteGoalHandler = (id: number) => {
+    setdGoals(goals.filter((goal) => goal.id !== id));
+  };
+
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler} />
@@ -28,7 +32,11 @@ export default function App() {
         <FlatList
           data={goals}
           renderItem={(itemData) => (
-            <GoalItem item={itemData.item.text} index={itemData.item.id} />
+            <GoalItem
+              item={itemData.item.text}
+              id={itemData.item.id}
+              onDelete={deleteGoalHandler}
+            />
           )}
         />
       </View>

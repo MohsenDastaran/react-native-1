@@ -1,21 +1,32 @@
-import { StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import React from "react";
 
-const GoalInput = (props: { item: string; index: number }) => {
+const GoalItem = (props: {
+  item: string;
+  id: number;
+  onDelete: (id: number) => void;
+}) => {
   return (
-    <Text style={styles.goalItem} key={props.index + Math.random()}>
-      {props.item}
-    </Text>
+    <Pressable
+      style={({ pressed }) => [styles.goalItem, pressed && { opacity: 0.6 }]}
+      onPress={() => props.onDelete(props.id)}
+    >
+      <Text style={styles.goalText}>{props.item}</Text>
+    </Pressable>
   );
 };
 
-export default GoalInput;
+export default GoalItem;
 
 const styles = StyleSheet.create({
   goalItem: {
     margin: 8,
-    padding: 8,
-    borderRadius: 5,
-    backgroundColor: "#ccc",
+    padding: 12,
+    borderRadius: 6,
+    backgroundColor: "#e0e0e0",
+  },
+  goalText: {
+    fontSize: 16,
+    color: "#333",
   },
 });

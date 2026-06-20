@@ -1,13 +1,30 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function App() {
-  const [goals, setdGoals] = useState<string[]>([]);
+  const [goals, setdGoals] = useState<string[]>([
+    "Test 1",
+    "Test 2",
+    "Test 3",
+    "Test 4",
+    "Test 5",
+    "Test 6",
+    "Test 7",
+    "Test 8",
+    "Test 9",
+    "Test 10",
+  ]);
   const [enteredGoal, setEnteredGoal] = useState("");
-  // const goalInputHandler = (e: string) => {
-  //   setEnteredGoal(e);
-  // };
+
   const addGoalHandler = () => {
+    if (!enteredGoal) return;
     setdGoals(goals.concat(enteredGoal));
     setEnteredGoal("");
   };
@@ -24,9 +41,13 @@ export default function App() {
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        {goals.map((g) => (
-          <Text key={g + Math.random()}>{g}</Text>
-        ))}
+        <ScrollView>
+          {goals.map((g) => (
+            <Text style={styles.goalItem} key={g + Math.random()}>
+              {g}
+            </Text>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -57,5 +78,11 @@ const styles = StyleSheet.create({
   },
   goalsContainer: {
     flex: 10,
+  },
+  goalItem: {
+    margin: 8,
+    padding: 8,
+    borderRadius: 5,
+    backgroundColor: "#ccc",
   },
 });

@@ -7,7 +7,7 @@ import {
   Image,
 } from "react-native";
 import React, { useState } from "react";
-import expoImage from "../assets/images/expo.png";
+
 const GoalInput = (props: {
   onAddGoal: (goal: string) => void;
   visible: boolean;
@@ -19,12 +19,11 @@ const GoalInput = (props: {
     if (!enteredGoal) return;
     props.onAddGoal(enteredGoal);
     setEnteredGoal("");
-    props;
   };
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.inputContainer}>
-        <Image style={styles.image} source={expoImage} />
+        <Image style={styles.image} source={require("../assets/expo.png")} />
         <TextInput
           style={styles.textInput}
           placeholder="Add Your Goal"
@@ -33,10 +32,10 @@ const GoalInput = (props: {
         />
         <View style={styles.butonContainer}>
           <View style={styles.button}>
-            <Button title="Cancel" onPress={props.onCancel} color="red" />
+            <Button title="Cancel" onPress={props.onCancel} color="#9b1558" />
           </View>
           <View style={styles.button}>
-            <Button title="Add Goal" onPress={addGoalHandler} />
+            <Button title="Add Goal" onPress={addGoalHandler} color="#011d24" />
           </View>
         </View>
       </View>
@@ -51,9 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
-    borderBottomWidth: 3,
-    borderBottomColor: "#cccccc",
+    backgroundColor: "#1b7b66",
     gap: 10,
     padding: 16,
   },
@@ -61,9 +58,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: "100%",
     borderColor: "#cccccc",
-    borderRadius: 3,
-    padding: 4,
+    borderRadius: 6,
+    padding: 16,
     marginEnd: 4,
+    color: "#120438",
+    backgroundColor: "#ece1fa",
   },
   butonContainer: {
     flexDirection: "row",
